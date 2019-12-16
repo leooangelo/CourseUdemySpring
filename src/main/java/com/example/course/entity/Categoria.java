@@ -1,12 +1,17 @@
 package com.example.course.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_category")
@@ -22,6 +27,10 @@ public class Categoria implements Serializable {
 	private Long id;
 	private String name;
 	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
+	private Set<Produto> products = new HashSet<>();
+	
 	public Categoria() {}
 	
 	public Categoria(Long id, String name) {
@@ -36,6 +45,19 @@ public class Categoria implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Set<Produto> getProducts() {
+		return products;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,5 +88,6 @@ public class Categoria implements Serializable {
 		return true;
 	}
 	
-	
+
+
 }
