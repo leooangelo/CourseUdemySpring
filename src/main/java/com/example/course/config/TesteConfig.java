@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.example.course.entity.Categoria;
+import com.example.course.entity.Payment;
 import com.example.course.entity.Pedido;
 import com.example.course.entity.PedidoItem;
 import com.example.course.entity.Produto;
@@ -66,14 +67,16 @@ public class TesteConfig implements CommandLineRunner{
 		PedidoItem oi2 = new PedidoItem(o1, p3, 1, p3.getPrice());
 		PedidoItem oi3 = new PedidoItem(o2, p3, 2, p3.getPrice());
 		PedidoItem oi4 = new PedidoItem(o3, p5, 2, p5.getPrice()); 
-
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		pedidoRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 		pedidoItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
-		
+		pedidoRepository.save(o1);
 		
 	}
 	
