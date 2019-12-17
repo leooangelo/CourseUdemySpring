@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.course.entity.Categoria;
 import com.example.course.entity.Pedido;
+import com.example.course.entity.PedidoItem;
 import com.example.course.entity.Produto;
 import com.example.course.entity.User;
 import com.example.course.entity.enums.PedidoStatus;
 import com.example.course.repository.CategoriaRepository;
+import com.example.course.repository.PedidoItemRepository;
 import com.example.course.repository.PedidoRepository;
 import com.example.course.repository.ProdutoRepository;
 import com.example.course.repository.UserRepository;
@@ -30,6 +32,8 @@ public class TesteConfig implements CommandLineRunner{
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private PedidoItemRepository pedidoItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -58,10 +62,19 @@ public class TesteConfig implements CommandLineRunner{
 		Pedido o2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"),PedidoStatus.WAITING_PAYMENT, u2);
 		Pedido o3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"),PedidoStatus.CANCELED, u1); 
 		
+		PedidoItem oi1 = new PedidoItem(o1, p1, 2, p1.getPrice());
+		PedidoItem oi2 = new PedidoItem(o1, p3, 1, p3.getPrice());
+		PedidoItem oi3 = new PedidoItem(o2, p3, 2, p3.getPrice());
+		PedidoItem oi4 = new PedidoItem(o3, p5, 2, p5.getPrice()); 
+
+		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		pedidoRepository.saveAll(Arrays.asList(o1,o2,o3));
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		pedidoItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		
 	}
 	
 	
