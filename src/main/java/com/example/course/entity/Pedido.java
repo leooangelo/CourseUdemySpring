@@ -44,7 +44,10 @@ public class Pedido implements Serializable{
 	
 	//Pedido id =1, pagamento tem que ter o mesmo id do pedido por isso utiliza cascade;
 	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+	
 	private Payment payment;
+	
+	
 	
 		public Pedido() {
 			
@@ -99,6 +102,13 @@ public class Pedido implements Serializable{
 
 		public Set<PedidoItem> getItems(){
 			return items;
+		}
+		public Double getTotal() {
+			double sum = 0.0;
+			for(PedidoItem x : items) {
+				sum += x.getSubTotal();
+			}
+			return  sum;
 		}
 		
 		
